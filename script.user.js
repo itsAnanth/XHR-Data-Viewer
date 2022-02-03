@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         XHR Data Viewer
 // @namespace    https://github.com/itsAnanth/XHR-Data-Viewer/
-// @version      0.1.2
+// @version      0.6.9
 // @description  View request and response sent from a website using xhr
 // @author       itsAnanth
 // @match        *://*/*
@@ -9,7 +9,7 @@
 // @grant        none
 // ==/UserScript==
 
-XMLHttpRequest = new Proxy(XMLHttpRequest, {
+window.XMLHttpRequest = new Proxy(XMLHttpRequest, {
     construct(target, _) {
         let xhr = window.xhrHook = new target(),
             _open = xhr.open,
@@ -20,8 +20,9 @@ XMLHttpRequest = new Proxy(XMLHttpRequest, {
         }
 
         xhr.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) 
+            if (this.readyState == 4 && this.status == 200) {
                 console.log(`[xhr hook] Incoming -> ${this.responseText}`);
+            }
         };
 
         xhr.send = function (...args) {
