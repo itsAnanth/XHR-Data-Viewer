@@ -4,17 +4,17 @@ XMLHttpRequest = new Proxy(XMLHttpRequest, {
             _open = xhr.open,
             _send = xhr.send;
         xhr.open = function (method, url, async) {
-            console.log(`[${method}] to ${url} (async ${async})`);
+            console.log(`[xhr hook] [${method}] to ${url} (async ${async})`);
             _open.apply(this, arguments);
         }
 
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) 
-                console.log(`Incoming -> ${this.responseText}`);
+                console.log(`[xhr hook] Incoming -> ${this.responseText}`);
         };
 
         xhr.send = function (...args) {
-            console.log(`Outgoing -> ${args}`);
+            console.log(`[xhr hook] Outgoing -> ${args}`);
             _send.apply(this, arguments);
         }
         return xhr;
