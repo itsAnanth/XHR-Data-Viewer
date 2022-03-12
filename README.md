@@ -1,3 +1,3 @@
 # XHR-Data-Viewer
 
-simple script to view data sent and received by XMLHttpRequest by attaching a javascript Proxy to it.
+A simple script to view data sent and received by means of using XMLHttpRequest by attaching a javascript Proxy to it.
